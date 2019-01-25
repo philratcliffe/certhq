@@ -28,7 +28,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    'certhq.users',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Override the default user model
+AUTH_USER_MODEL='users.CustomUser'

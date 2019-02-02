@@ -17,6 +17,12 @@ class CertificateModelTest(TestCase):
         expected_subject = "CN=www.example.com, O=Frank4DD, ST=Tokyo, C=JP"
         self.assertEqual(expected_subject, cert.subject)
 
+    def test_issuer(self):
+        cert = Certificate.objects.all()[0]
+        expected_issuer = "emailAddress=support@frank4dd.com, CN=Frank4DD Web CA, OU=WebCert Support, O=Frank4DD, L=Chuo-ku, ST=Tokyo, C=JP"
+        self.assertEqual(expected_issuer, cert.issuer)
+
+
 
 
 TEST_EXPIRED_RSA_2048_CERT=b"""

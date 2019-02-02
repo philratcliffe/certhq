@@ -10,7 +10,7 @@ class CertificateModelTest(TestCase):
     def test_string_representation(self):
         cert = Certificate.objects.all()[0]
         expected_CN = "www.example.com"
-        self.assertEqual(expected_CN, str(cert.cn))
+        self.assertEqual(expected_CN, cert.cn)
 
     def test_subject(self):
         cert = Certificate.objects.all()[0]

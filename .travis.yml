@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install -r config/requirements.txt
+
+env:
+  - DJANGO_SETTINGS_MODULE='config.settings.production'
+
+script:
+  - python mamage.py migrate
+  - python manage.py test

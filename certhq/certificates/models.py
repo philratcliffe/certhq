@@ -8,10 +8,25 @@ from cryptography.hazmat.primitives import hashes
 from model_utils.models import TimeStampedModel
 
 
+def stringify_x509_name(x509_name):
+    """Returns a string representation of an X509Name object"""
+    name = ""
+    for rdn in x509_name.get_components()[::-1]:
+        name += rdn[0].decode('utf-8')
+        name += '='
+        name += rdn[1].decode('utf-8')
+        name += ', '
+    name = name[:-2]
+    return name
+
+
 class CertificateManager(models.Manager):
     def create_certificate(self, pem_data):
         c = crypto.load_certificate(crypto.FILETYPE_PEM, pem_data)
-        cert = Certificate(pem_data=pem_data, cn=c.get_subject().CN)
+        x509_name = c.get_subject()
+        subject = stringify_x509_name(x509_name)
+        cert = Certificate(
+            pem_data=pem_data, subject=subject, cn=c.get_subject().CN)
         cert.save()
         return cert
 

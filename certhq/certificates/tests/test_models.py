@@ -22,6 +22,10 @@ class CertificateModelTest(TestCase):
         expected_issuer = "emailAddress=support@frank4dd.com, CN=Frank4DD Web CA, OU=WebCert Support, O=Frank4DD, L=Chuo-ku, ST=Tokyo, C=JP"
         self.assertEqual(expected_issuer, cert.issuer)
 
+    def test_sha256_fingerprint(self):
+        cert = Certificate.objects.all()[0]
+        expected_fingerprint = "078A656E3670499C991BB0274682058AF7BDC05FC462C605F0F8958179816CD7"
+        self.assertEqual(expected_fingerprint, cert.sha256_fingerprint)
 
 
 

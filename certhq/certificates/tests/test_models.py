@@ -5,7 +5,7 @@ from certhq.certificates.models import Certificate
 class CertificateModelTest(TestCase):
 
     def setUp(self):
-        Certificate.objects.create_certificate(TEST_EXPIRED_RSA_2048_CERT)
+        Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
 
     def test_string_representation(self):
         cert = Certificate.objects.all()[0]

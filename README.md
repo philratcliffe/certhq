@@ -1,2 +1,2 @@
 # certhq
-Central store for certificate information
+Central store and API for certificate information

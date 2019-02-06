@@ -17,6 +17,8 @@ def stringify_x509_name(x509_name):
 
 class CertificateManager(models.Manager):
     def create_certificate(self, pem_data):
+        # TODO refactor this cert parsing code out of here
+        # so can use below in create
         c = crypto.load_certificate(crypto.FILETYPE_PEM, pem_data)
         subject = stringify_x509_name(c.get_subject())
         issuer = stringify_x509_name(c.get_issuer())
@@ -29,8 +31,17 @@ class CertificateManager(models.Manager):
             subject=subject,
             cn=cn,
             sha256_fingerprint=sha256_fingerprint)
-        cert.save()
+	# cert.save() add back in - after testing if create works
         return cert
+
+    def create(self, *args, **kwargs):
+        cert = self.create_certificate(kwargs['pem_data'])
+        kwargs['issuer'] = cert.issuer
+        kwargs['subject'] = cert.subject
+        kwargs['cn'] = cert.cn
+        kwargs['sha256_fingerprint'] = cert.sha256_fingerprint
+
+        return super(CertificateManager, self).create(*args, **kwargs)
 
 
 class Certificate(TimeStampedModel):

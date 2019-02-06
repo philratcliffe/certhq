@@ -6,6 +6,6 @@ class CertificateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Certificate
-        fields = ('pem_data', 'cn')
+        fields = ('pem_data',)
 
 

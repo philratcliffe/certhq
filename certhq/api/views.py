@@ -1,6 +1,6 @@
 from certhq.certificates.models import Certificate
 from rest_framework import generics
-from .serializers import CertificateSerializer
+from .serializers import CertificatePostSerializer, CertificateGetSerializer
 
 
 class CertificateList(generics.ListCreateAPIView):
@@ -8,4 +8,10 @@ class CertificateList(generics.ListCreateAPIView):
     API endpoint that allows certificates to be viewed or created.
     """
     queryset = Certificate.objects.all()
-    serializer_class = CertificateSerializer
+
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CertificatePostSerializer
+        return CertificateGetSerializer
+

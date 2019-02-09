@@ -1,8 +1,9 @@
 from django.test import TestCase
-
+import json
 from rest_framework import status
 
 from certhq.certificates.models import Certificate
+from certhq.api.serializers import CertificateGetSerializer
 
 
 class ApiPostTests(TestCase):
@@ -27,12 +28,13 @@ class ApiGetTests(TestCase):
     def setUp(self):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
 
-    def test_list_certificates(self):
+    def test_list_certificates_returns_one_result(self):
         response = self.client.get('/api/v1/certificates')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        c = response.content.decode('utf-8')
-        print(type(c))
-        print(type(c[0]))
+        json_str = response.content.decode('utf-8')
+        res_list = json.loads(json_str)
+        expected_number_of_results = 1
+        self.assertEqual(len(res_list), expected_number_of_results)
 
 
 TEST_EXPIRED_RSA_2048_CERT = """

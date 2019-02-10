@@ -1,40 +1,42 @@
-from django.test import TestCase
+from django.urls import reverse
 import json
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 from certhq.certificates.models import Certificate
 from certhq.api.serializers import CertificateGetSerializer
 
 
-class ApiPostTests(TestCase):
+class ApiPostTests(APITestCase):
+    def setUp(self):
+        self.url = reverse('api:certificates')
+
     def test_create_record(self):
-        response = self.client.post('/api/v1/certificates',
+        response = self.client.post(self.url,
                                     {'pem_data': TEST_EXPIRED_RSA_2048_CERT})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        count = Certificate.objects.all().count()
-        expected_object_count = 1
-        self.assertEqual(count, expected_object_count)
+        self.assertEqual(Certificate.objects.count(), 1)
 
     def test_create_record_with_correct_subject(self):
-        response = self.client.post('/api/v1/certificates',
-                                    {'pem_data': TEST_EXPIRED_RSA_2048_CERT})
+        response = self.client.post(self.url,
+            {'pem_data': TEST_EXPIRED_RSA_2048_CERT})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         cert = Certificate.objects.all()[0]
         expected_subject = "CN=www.example.com, O=Frank4DD, ST=Tokyo, C=JP"
         self.assertEqual(expected_subject, cert.subject)
 
 
-class ApiGetTests(TestCase):
+class ApiGetTests(APITestCase):
     def setUp(self):
+        self.url = reverse('api:certificates')
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
 
     def test_list_certificates_returns_one_result(self):
-        response = self.client.get('/api/v1/certificates')
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         json_str = response.content.decode('utf-8')
         res_list = json.loads(json_str)
-        expected_number_of_results = 1
-        self.assertEqual(len(res_list), expected_number_of_results)
+        self.assertEqual(len(res_list), Certificate.objects.count())
 
 
 TEST_EXPIRED_RSA_2048_CERT = """

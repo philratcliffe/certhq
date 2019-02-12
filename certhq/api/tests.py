@@ -60,12 +60,19 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
 
         self.url = reverse('api:certificate_detail', kwargs={'pk': 1})
         self.expected_cn = obj_dict['cn']
+        self.expected_subject = obj_dict['subject']
 
     def test_get_certificates_returns_expected_cn(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         resp = json.loads(response.content)
         self.assertEqual(resp['cn'], self.expected_cn)
+
+    def test_get_certificates_returns_expected_subject(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        resp = json.loads(response.content)
+        self.assertEqual(resp['subject'], self.expected_subject)
 
 
 TEST_EXPIRED_RSA_2048_CERT = """-----BEGIN CERTIFICATE-----

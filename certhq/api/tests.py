@@ -58,7 +58,7 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
         obj_dict = Certificate.objects.all()[0].__dict__
 
-        self.url = reverse('api:certificate_detail', kwargs={'pk': 1})
+        self.url = reverse('api:certificate_retrieve_destroy', kwargs={'pk': 1})
         self.expected_cn = obj_dict['cn']
         self.expected_subject = obj_dict['subject']
 
@@ -73,6 +73,17 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         resp = json.loads(response.content)
         self.assertEqual(resp['subject'], self.expected_subject)
+
+
+class ApiDeleteCertificateTests(APITestCase):
+    def setUp(self):
+        Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
+        self.url = reverse('api:certificate_retrieve_destroy', kwargs={'pk': 1})
+
+    def test_delete_certificate(self):
+        response = self.client.delete(self.url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(0, Certificate.objects.count())
 
 
 TEST_EXPIRED_RSA_2048_CERT = """-----BEGIN CERTIFICATE-----

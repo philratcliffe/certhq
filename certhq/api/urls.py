@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CertificateListCreate, CertificateRetrieve
+from .views import CertificateListCreate, CertificateRetrieveDestroy
 
 app_name = 'api'
 
@@ -7,6 +7,6 @@ urlpatterns = [
     path('certificates', CertificateListCreate.as_view(), name='certificates'),
     path(
         'certificates/<int:pk>/',
-        CertificateRetrieve.as_view(),
-        name='certificate_detail')
+        CertificateRetrieveDestroy.as_view(),
+        name='certificate_retrieve_destroy')
 ]

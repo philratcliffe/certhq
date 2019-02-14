@@ -58,7 +58,8 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
         obj_dict = Certificate.objects.all()[0].__dict__
 
-        self.url = reverse('api:certificate_retrieve_destroy', kwargs={'pk': 1})
+        self.url = reverse(
+            'api:certificate_retrieve_destroy', kwargs={'pk': 1})
         self.expected_cn = obj_dict['cn']
         self.expected_subject = obj_dict['subject']
 
@@ -78,7 +79,8 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
 class ApiDeleteCertificateTests(APITestCase):
     def setUp(self):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
-        self.url = reverse('api:certificate_retrieve_destroy', kwargs={'pk': 1})
+        self.url = reverse(
+            'api:certificate_retrieve_destroy', kwargs={'pk': 1})
 
     def test_delete_certificate(self):
         response = self.client.delete(self.url)

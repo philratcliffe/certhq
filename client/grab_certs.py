@@ -1,4 +1,5 @@
 import ssl
+import socket
 
 with open('hosts') as lines:
     for line in lines:
@@ -9,17 +10,21 @@ with open('hosts') as lines:
             hostname, port = line.split(':')
             port = int(port)
         else:
+            hostname = line
             port = 443
 
-        conn = ssl.create_connection((hostname, port))
         context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+        try:
+            with socket.create_connection((hostname, 443)) as sock:
+                with context.wrap_socket(sock, server_hostname=hostname) as ssock:
+                    print(ssock.version())
 
-        # Pass the hostname for SNI servers
-        sock = context.wrap_socket(conn, server_hostname=hostname)
+                    der_certificate = ssock.getpeercert(binary_form=True)
+                    pem_certificate = ssl.DER_cert_to_PEM_cert(der_certificate)
 
-        der_certificate = sock.getpeercert(binary_form=True)
-        pem_certificate = ssl.DER_cert_to_PEM_cert(der_certificate)
-        print(hostname, port)
-        print(pem_certificate)
+                    print(hostname, port)
+                    print(pem_certificate)
+        except Exception as e:
+            print(e)
 
 

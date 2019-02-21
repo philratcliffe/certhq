@@ -16,7 +16,8 @@ with open('hosts') as lines:
         context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
         try:
             with socket.create_connection((hostname, 443)) as sock:
-                with context.wrap_socket(sock, server_hostname=hostname) as ssock:
+                with context.wrap_socket(
+                        sock, server_hostname=hostname) as ssock:
                     print(ssock.version())
 
                     der_certificate = ssock.getpeercert(binary_form=True)
@@ -26,5 +27,3 @@ with open('hosts') as lines:
                     print(pem_certificate)
         except Exception as e:
             print(e)
-
-

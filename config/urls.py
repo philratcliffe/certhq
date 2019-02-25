@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('django.contrib.auth.urls')),
     path('users/', include('certhq.users.urls')),
+    path('certificates/', include('certhq.certificates.urls')),
     path('api/v1/', include('certhq.api.urls'))
 ]

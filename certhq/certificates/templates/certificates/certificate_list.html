@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Certificates</h2>
+	<ul>
+	{% for cert in object_list %}
+    <li>{{ cert.cn }}</li>
+	{% empty %}
+    	<li>No certificates yet.</li>
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+
+
+
+
+
+

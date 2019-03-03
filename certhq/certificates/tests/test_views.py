@@ -20,13 +20,13 @@ class TestCertificateListView(TestCase):
         self.cert_list_url = reverse('certificates')
         Certificate.objects.create(pem_data=TEST_CERT_1)
 
-    def test_list_one_cert(self):
+    def test_title(self):
         client = Client()
         response = client.get(self.cert_list_url)
         print("debug", self.cert_list_url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        print(response)
-
+        html = response.content.decode('utf8')
+        self.assertIn('<title>CertHQ - Certificates</title>', html)
 
 TEST_CERT_1 = """
 -----BEGIN CERTIFICATE-----

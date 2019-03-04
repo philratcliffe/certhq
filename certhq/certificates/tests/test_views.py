@@ -23,7 +23,6 @@ class TestCertificateListView(TestCase):
     def test_title(self):
         client = Client()
         response = client.get(self.cert_list_url)
-        print("debug", self.cert_list_url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         html = response.content.decode('utf8')
         self.assertIn('<title>CertHQ - Certificates</title>', html)

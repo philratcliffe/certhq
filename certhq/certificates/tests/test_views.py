@@ -27,6 +27,17 @@ class TestCertificateListView(TestCase):
         html = response.content.decode('utf8')
         self.assertIn('<title>CertHQ - Certificates</title>', html)
 
+    def test_list(self):
+        client = Client()
+        response = client.get(self.cert_list_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        html = response.content.decode('utf8')
+        self.assertIn('certhq.com', html)
+
+
+
+
+# CN = certhq.com,O = RKC,L = Stoke,ST = Staffs,C = GB
 TEST_CERT_1 = """
 -----BEGIN CERTIFICATE-----
 MIIDeDCCAmCgAwIBAgIJAKkK3/imJk/0MA0GCSqGSIb3DQEBCwUAMFExCzAJBgNV

@@ -4,6 +4,6 @@ from .models import Certificate
 
 app_name = 'certificates'
 
+
 class CertificateList(ListView):
     model = Certificate
-

@@ -3,9 +3,6 @@ const API_URL = 'http://localhost:8000';
 
 export default class CertificatesService{
 
-    constructor(){}
-
-
     getCertificates() {
         const url = `${API_URL}/api/v1/certificates`;
         return axios.get(url).then(response => response.data);

@@ -1,3 +1,34 @@
+wrong.host.badssl.com
+untrusted-root.badssl.com
+self-signed.badssl.com
+sha512.badssl.com
+ecc384.badssl.com
+rsa8192.badssl.com
+ecc256.badssl.com
+ecc384.badssl.com
+smtp.gmail.com 587
+smtp.live.com 25
+plus.pop.mail.yahoo.com 995
+www.amazon.com 443
+imap.aol.com 993
+smtp.aol.com 465
+securesmtp.t-online.de 587
+searchtempest.com
+peopleclick.com
+bbc.co.uk
+github.com
+nytimes.com
+revoked.badssl.com
+portableapps.com
+trello.com
+statcounter.com
+www.eff.org
+hulu.com
+www.americanbar.org
+tls-v1-0.badssl.com 1010
+tls-v1-1.badssl.com 1011
+tls-v1-2.badssl.com 1012
+expired.badssl.com
 bbc.co.uk:443
 google.com
 notavalidhostnametotestmovestonexthost

@@ -19,7 +19,7 @@ class CertificatesList extends Component {
     componentDidMount() {
         var self = this;
         certificatesService.getCertificates().then(function (result) {
-            self.setState({ certificates: result, nextPageURL: result.nextlink })
+            self.setState({ certificates: result.results, nextPageURL: result.next })
         });
     }
 

@@ -4,12 +4,15 @@ const API_URL = 'http://localhost:8000';
 export default class CertificatesService{
 
     getCertificates() {
+        console.log("In getCertificates")
         const url = `${API_URL}/api/v1/certificates`;
+        console.log(url)
         return axios.get(url).then(response => response.data);
     }  
     getCertificatesByURL(link){
-        const url = `${API_URL}${link}`;
-        return axios.get(url).then(response => response.data);
+        console.log("In getCertificatesByURL")
+        console.log(link)
+        return axios.get(link).then(response => response.data);
     }
     getCertificate(pk) {
         const url = `${API_URL}/api/v1/certificates/${pk}`;

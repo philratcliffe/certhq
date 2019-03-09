@@ -35,7 +35,7 @@ class CertificatesList extends Component {
 
     nextPage() {
         var self = this;
-        certificatesService.getCertificatessByURL(this.state.nextPageURL).then((result) => {
+        certificatesService.getCertificatesByURL(this.state.nextPageURL).then((result) => {
             self.setState({ certificates: result.data, nextPageURL: result.nextlink })
         });
     }

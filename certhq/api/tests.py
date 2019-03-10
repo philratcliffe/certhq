@@ -44,13 +44,13 @@ class ApiListTestsWithOneRecord(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         resp = json.loads(response.content)
         obj = Certificate.objects.all()[0]
-        self.assertEqual(len(resp), Certificate.objects.count())
+        self.assertEqual(len(resp['results']), Certificate.objects.count())
 
     def test_list_certificates_returns_expected_cn(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         resp = json.loads(response.content)
-        self.assertEqual(resp[0]['cn'], self.expected_cn)
+        self.assertEqual(resp['results'][0]['cn'], self.expected_cn)
 
 
 class ApiGetCertificateTestsWithOneRecord(APITestCase):

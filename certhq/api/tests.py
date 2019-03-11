@@ -76,6 +76,20 @@ class ApiGetCertificateTestsWithOneRecord(APITestCase):
         self.assertEqual(resp['subject'], self.expected_subject)
 
 
+class ApiGetCertificateListTestsWithPagination(APITestCase):
+    def setUp(self):
+        Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
+        obj_dict = Certificate.objects.all()[0].__dict__
+
+        self.base_url = reverse('api:certificates')
+        self.query = "?limit=1&offset-0"
+        self.url = self.base_url + self.query
+
+    def test_get_certificates_returns_expected_status(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
 class ApiDeleteCertificateTests(APITestCase):
     def setUp(self):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)

@@ -85,10 +85,19 @@ class ApiGetCertificateListTestsWithPagination(APITestCase):
         self.query = "?limit=1&offset-0"
         self.url = self.base_url + self.query
 
+        self.url = reverse('api:certificates')
+        self.expected_cn = obj_dict['cn']
+
+
     def test_get_certificates_returns_expected_status(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_get_certificates_returns_expected_cn(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        resp = json.loads(response.content)
+        self.assertEqual(resp['results'][0]['cn'], self.expected_cn)
 
 class ApiDeleteCertificateTests(APITestCase):
     def setUp(self):

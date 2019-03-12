@@ -9,17 +9,18 @@ class CertificatesList extends Component {
         super(props);
         this.state = {
             certificates: [],
-            nextPageURL: ''
+            nextPageURL: '',
+            prevPageURL: ''
         };
         this.nextPage = this.nextPage.bind(this);
+        this.prevPage = this.prevPage.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
-
 
     componentDidMount() {
         var self = this;
         certificatesService.getCertificates().then(function (result) {
-            self.setState({ certificates: result.results, nextPageURL: result.next })
+            self.setState({ certificates: result.results, nextPageURL: result.next, prevPageURL: result.prev })
         });
     }
 
@@ -33,10 +34,18 @@ class CertificatesList extends Component {
         });
     }
 
+
+    prevPage() {
+        var self = this;
+        certificatesService.getCertificatesByURL(this.state.prevPageURL).then((result) => {
+            self.setState({ certificates: result.results, nextPageURL: result.next, prevPageURL: result.previous })
+        });
+    }
+
     nextPage() {
         var self = this;
         certificatesService.getCertificatesByURL(this.state.nextPageURL).then((result) => {
-            self.setState({ certificates: result.data, nextPageURL: result.nextlink })
+            self.setState({ certificates: result.results, nextPageURL: result.next, prevPageURL: result.previous })
         });
     }
 
@@ -65,7 +74,8 @@ class CertificatesList extends Component {
                             </tr>)}
                     </tbody>
                 </table>
-                <button className="btn btn-primary" onClick={this.nextPage}>Next</button>
+                <button className="btn btn-primary mr-2" onClick={this.nextPage}>Next</button>
+                <button className="btn btn-primary" onClick={this.prevPage}>Prev</button>
             </div>
         );
     }

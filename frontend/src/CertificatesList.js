@@ -74,8 +74,8 @@ class CertificatesList extends Component {
                             </tr>)}
                     </tbody>
                 </table>
-                <button className="btn btn-primary mr-2" onClick={this.nextPage}>Next</button>
-                <button className="btn btn-primary" onClick={this.prevPage}>Prev</button>
+                <button className="btn btn-primary mr-2" onClick={this.prevPage}>Prev</button>
+                <button className="btn btn-primary" onClick={this.nextPage}>Next</button>
             </div>
         );
     }

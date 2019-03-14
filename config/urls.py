@@ -18,7 +18,7 @@ from django.urls import include, path, reverse_lazy
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url=reverse_lazy('login'))),
+    path('', RedirectView.as_view(url=reverse_lazy('certificates'))),
     path('admin/', admin.site.urls),
     path('users/', include('django.contrib.auth.urls')),
     path('users/', include('certhq.users.urls')),

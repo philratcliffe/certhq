@@ -35,6 +35,16 @@ class TestCertificateListView(TestCase):
         self.assertIn('certhq.com', html)
 
 
+class TestCertificateDetailView(TestCase):
+    def setUp(self):
+        Certificate.objects.create(pem_data=TEST_CERT_1)
+
+    def test_detail_response(self):
+        url = '/certificates/1'
+        client = Client()
+        response = client.get(url)
+        self.assertEqual(response.status, HTTPStatus.OK)
+
 
 
 # CN = certhq.com,O = RKC,L = Stoke,ST = Staffs,C = GB

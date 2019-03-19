@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+
+{%block title%}CertHQ - Certificate Detail{%endblock title%}
+
+{% block content %}
+    <h2>Certificates</h2>
+	<ul>
+    <li>{{ object.cn }}</li>
+    <li>{{ object.subject }}</li>
+    <li>{{ object.issuer }}</li>
+    <li>{{ object.sha256_fingerprint }}</li>
+	</ul>
+{% endblock %}

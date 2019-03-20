@@ -43,8 +43,7 @@ class TestCertificateDetailView(TestCase):
         url = '/certificates/1'
         client = Client()
         response = client.get(url)
-        self.assertEqual(response.status, HTTPStatus.OK)
-
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
 # CN = certhq.com,O = RKC,L = Stoke,ST = Staffs,C = GB

@@ -52,3 +52,6 @@ class Certificate(TimeStampedModel):
 
     def __str__(self):
         return self.cn
+
+    def is_expired(self):
+        return True;

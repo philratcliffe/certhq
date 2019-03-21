@@ -28,6 +28,12 @@ class CertificateModelTest(TestCase):
         self.assertEqual(expected_fingerprint, cert.sha256_fingerprint)
 
 
+class CertificateModelTestIsExpired(TestCase):
+
+    def test_when_not_expired(self):
+        Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
+        cert = Certificate.objects.all()[0]
+        self.assertFalse(cert.is_expired())
 
 TEST_EXPIRED_RSA_2048_CERT=b"""
 -----BEGIN CERTIFICATE-----

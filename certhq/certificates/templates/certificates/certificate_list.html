@@ -7,7 +7,7 @@
     <h2>Certificates</h2>
 	<ul>
 	{% for cert in object_list %}
-    <li>{{ cert.cn }}</li>
+    <li><a href="{% url 'certificate_detail' pk=cert.id %}">{{ cert.cn }}</li>
 	{% empty %}
     	<li>No certificates yet.</li>
 	{% endfor %}

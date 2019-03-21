@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from certhq.certificates.models import Certificate
 
-class CertificateModelTest(TestCase):
 
+class CertificateModelTest(TestCase):
     def setUp(self):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
 
@@ -28,8 +28,14 @@ class CertificateModelTest(TestCase):
         self.assertEqual(expected_fingerprint, cert.sha256_fingerprint)
 
 
+class CertificateModelTestIsExpired(TestCase):
+    def test_when_not_expired(self):
+        Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
+        cert = Certificate.objects.all()[0]
+        self.assertFalse(cert.is_expired())
 
-TEST_EXPIRED_RSA_2048_CERT=b"""
+
+TEST_EXPIRED_RSA_2048_CERT = b"""
 -----BEGIN CERTIFICATE-----
 MIIC2jCCAkMCAg38MA0GCSqGSIb3DQEBBQUAMIGbMQswCQYDVQQGEwJKUDEOMAwG
 A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE
@@ -49,4 +55,3 @@ rGhLV1pRG9frwDFshqD2Vaj4ENBCBh6UpeBop5+285zQ4SI7q4U9oSebUDJiuOx6
 +tZ9KynmrbJpTSi0+BM=
 -----END CERTIFICATE-----
 """
-

@@ -27,7 +27,10 @@ tnKuAkVyBlUuoSkodkSCHFje0AGq9SCxUSdhlIgabiXbMu6CJaZIUnu10fJT8Eec
 /MFK4XWv3VRL+H1Q3x6tWs+KHyD/jrHokjhlWg==
 -----END CERTIFICATE-----"""
 
-url = 'http://localhost:8000/api/v1/certificates'
+hostname='localhost'
+port='8000'
+
+url = f'http://{hostname}:{port}/api/v1/certificates'
 r = requests.post(url, {'pem_data': CERT})
 if r.status_code == HTTPStatus.CREATED:
     print("certificate added")

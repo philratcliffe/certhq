@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 from OpenSSL import crypto
@@ -23,12 +24,17 @@ class CertificateManager(models.Manager):
         cn = c.get_subject().CN
         sha256_fingerprint = c.digest('SHA256').decode('utf-8').replace(
             ':', '')
+        not_after = c.get_notAfter()
+        not_after_str = not_after.decode('utf-8')
+        not_after_dt = datetime.strptime(not_after_str, '%Y%m%d%H%M%SZ')
+        import pdb;pdb.set_trace()
         cert = Certificate(
             pem_data=pem_data,
             issuer=issuer,
             subject=subject,
             cn=cn,
-            sha256_fingerprint=sha256_fingerprint)
+            sha256_fingerprint=sha256_fingerprint,
+            not_after=not_after_dt)
         return cert
 
     def create(self, *args, **kwargs):
@@ -37,6 +43,7 @@ class CertificateManager(models.Manager):
         kwargs['subject'] = cert.subject
         kwargs['cn'] = cert.cn
         kwargs['sha256_fingerprint'] = cert.sha256_fingerprint
+        kwargs['not_after'] = cert.not_after
 
         return super(CertificateManager, self).create(*args, **kwargs)
 
@@ -47,6 +54,7 @@ class Certificate(TimeStampedModel):
     subject = models.CharField(max_length=2048, blank=True)
     cn = models.CharField(max_length=2048, blank=True)
     sha256_fingerprint = models.CharField(max_length=64, unique=True)
+    not_after = models.DateTimeField()
 
     objects = CertificateManager()
 

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = '3emm&7%qrct3p=yzhey+ulc$in(f)9k5*6wnp+=f!7uu^#2==v'
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'certhq-test.ydfdu33pzh.eu-west-2.elasticbeanstalk.com']
 
 # Application definition
 

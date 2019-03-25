@@ -4,7 +4,7 @@ python:
   - "3.6"
 
 install:
-  - pip install -r config/requirements.txt
+  - pip install -r config/requirements/dev.txt
 
 env:
   - DJANGO_SETTINGS_MODULE='config.settings.production'

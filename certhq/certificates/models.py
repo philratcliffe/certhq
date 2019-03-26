@@ -1,4 +1,6 @@
+import pytz
 from datetime import datetime
+
 from django.db import models
 
 from OpenSSL import crypto
@@ -61,4 +63,6 @@ class Certificate(TimeStampedModel):
         return self.cn
 
     def is_expired(self):
-        return True;
+        if self.not_after <= datetime.now(pytz.utc):
+            return True
+        return False

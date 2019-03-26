@@ -32,7 +32,7 @@ class CertificateModelTestIsExpired(TestCase):
     def test_when_not_expired(self):
         Certificate.objects.create(pem_data=TEST_EXPIRED_RSA_2048_CERT)
         cert = Certificate.objects.all()[0]
-        self.assertFalse(cert.is_expired())
+        self.assertTrue(cert.is_expired())
 
 
 TEST_EXPIRED_RSA_2048_CERT = b"""

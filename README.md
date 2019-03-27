@@ -1,7 +1,12 @@
 # CertHQ
 Central store and API for certificate information
 
-# Running CertHQ
+# Running CertHQ in Production (AWS Elastic Beanstalk)
+eb init (this will set the default values for the EB app - call it certhq)
+
+eb create (create an environment to run the app in - e.g certhq staging)
+ 
+# Running CertHQ in Development
 Set the settings environmental variable:
 
 export DJANGO_SETTINGS_MODULE='config.settings.local'

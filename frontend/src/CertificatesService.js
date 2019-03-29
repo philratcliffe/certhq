@@ -1,5 +1,7 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000';
+const hostname = 'certhq-stage.eu-west-2.elasticbeanstalk.com'
+const port = '80'
+const API_URL = `http://${hostname}:${port}`;
 
 export default class CertificatesService{
 

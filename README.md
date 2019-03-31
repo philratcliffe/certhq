@@ -1,5 +1,5 @@
 # CertHQ
-Central store and API for certificate information
+Central store and API for TLS/SSL certificate information
 
 ## Running CertHQ in AWS Elastic Beanstalk
 Run **eb init** to initialise an EB app and set its default values.

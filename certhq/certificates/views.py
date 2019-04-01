@@ -4,8 +4,10 @@ from .models import Certificate
 
 app_name = 'certificates'
 
+
 class CertificateList(ListView):
     model = Certificate
+
 
 class CertificateDetail(DetailView):
     model = Certificate

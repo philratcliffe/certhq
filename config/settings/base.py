@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import sys
 
+# BASE_DIR is the folder where manage.py is
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 

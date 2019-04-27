@@ -3,6 +3,8 @@ from django.test import TestCase
 from django.urls import reverse
 from http import HTTPStatus
 
+from certhq.users.models import CustomUser as User
+
 from certhq.certificates.models import Certificate
 
 class TestErrorConditions(TestCase):
@@ -19,17 +21,21 @@ class TestCertificateListView(TestCase):
     def setUp(self):
         self.cert_list_url = reverse('certificates')
         Certificate.objects.create(pem_data=TEST_CERT_1)
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        self.client = Client()
+        logged_in = self.client.login(username='testuser', password='12345')
+        self.assertTrue(logged_in)
 
     def test_title(self):
-        client = Client()
-        response = client.get(self.cert_list_url)
+        response = self.client.get(self.cert_list_url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         html = response.content.decode('utf8')
         self.assertIn('<title>CertHQ - Certificates</title>', html)
 
     def test_list(self):
-        client = Client()
-        response = client.get(self.cert_list_url)
+        response = self.client.get(self.cert_list_url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         html = response.content.decode('utf8')
         self.assertIn('certhq.com', html)
@@ -38,11 +44,16 @@ class TestCertificateListView(TestCase):
 class TestCertificateDetailView(TestCase):
     def setUp(self):
         Certificate.objects.create(pem_data=TEST_CERT_1)
+        user = User.objects.create(username='testuser')
+        user.set_password('12345')
+        user.save()
+        self.client = Client()
+        logged_in = self.client.login(username='testuser', password='12345')
+        self.assertTrue(logged_in)
 
     def test_detail_response(self):
         url = '/certificates/1'
-        client = Client()
-        response = client.get(url)
+        response = self.client.get(url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
 

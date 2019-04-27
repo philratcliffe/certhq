@@ -1,4 +1,5 @@
 import pytz
+from dateutil import parser
 from datetime import datetime
 
 from django.db import models
@@ -28,7 +29,7 @@ class CertificateManager(models.Manager):
             ':', '')
         not_after = c.get_notAfter()
         not_after_str = not_after.decode('utf-8')
-        not_after_dt = datetime.strptime(not_after_str, '%Y%m%d%H%M%SZ')
+        not_after_dt = parser.parse(not_after_str)
         cert = Certificate(
             pem_data=pem_data,
             issuer=issuer,

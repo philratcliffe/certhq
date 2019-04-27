@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, reverse_lazy
-from django.views.generic.base import RedirectView
+from django.views.generic import RedirectView, TemplateView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url=reverse_lazy('certificates'))),
+    path('', TemplateView.as_view(template_name='home.html')),
     path('admin/', admin.site.urls),
     path('users/', include('django.contrib.auth.urls')),
     path('users/', include('certhq.users.urls')),

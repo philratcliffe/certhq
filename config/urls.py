@@ -18,10 +18,10 @@ from django.urls import include, path, reverse_lazy
 from django.views.generic import RedirectView, TemplateView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('users/', include('django.contrib.auth.urls')),
     path('users/', include('certhq.users.urls')),
     path('certificates/', include('certhq.certificates.urls')),
-    path('api/v1/', include('certhq.api.urls'))
+    path('api/v1/', include('certhq.api.urls')),
+    path('accounts/', include('allauth.urls')), 
 ]

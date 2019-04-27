@@ -39,12 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'rest_framework',
     'corsheaders',
 
     'certhq.api',
     'certhq.certificates',
+
+
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
+    'allauth.socialaccount.providers.google', 
+
 ]
 
 MIDDLEWARE = [
@@ -131,7 +139,8 @@ STATIC_URL = '/static/'
 # Override the default user model
 AUTH_USER_MODEL='users.CustomUser'
 LOGIN_URL='/users/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -143,3 +152,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
+
+# demo_project/settings.py
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False

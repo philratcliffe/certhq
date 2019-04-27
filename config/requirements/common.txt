@@ -4,5 +4,4 @@ cryptography==2.5
 pyOpenSSL==19.0.0
 djangorestframework==3.9.1
 django-cors-headers==2.5.0
-django-allauth
-coverage
+django-allauth==0.39.1
